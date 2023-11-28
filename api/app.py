@@ -60,7 +60,6 @@ def getTable(table):
         return getJsonResponse(columns, datos)
     elif formato == "xml":
         return getXmlResponse(columns, datos)
-    return "404 :3"
 
 
 @app.route("/<table>/<field>/<value>", methods=["GET"])
@@ -79,7 +78,6 @@ def getTableByField(table, field, value):
         return getJsonResponse(columns, datos)
     elif formato == "xml":
         return getXmlResponse(columns, datos)
-    return "404 :3"
 
 
 if __name__ == "__main__":
