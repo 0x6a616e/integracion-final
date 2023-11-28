@@ -2,6 +2,9 @@ from os import getenv
 from flask import Flask, request, Response, jsonify
 from flask_mysqldb import MySQL
 import xml.etree.ElementTree as ET
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -78,6 +81,14 @@ def getTableByField(table, field, value):
         return getJsonResponse(columns, datos)
     elif formato == "xml":
         return getXmlResponse(columns, datos)
+
+
+@app.route("/<table>", methods=["POST"])
+def insertData(table):
+    columns = getColumns(table)
+    if not columns:
+        return "Table not found", 404
+    return "Hola"
 
 
 if __name__ == "__main__":
