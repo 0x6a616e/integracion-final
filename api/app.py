@@ -25,6 +25,27 @@ def getColumns(table):
     return columns
 
 
+def getJsonResponse(columns, datos):
+    data = []
+    for i in range(len(datos)):
+        data.append({})
+        for j in range(len(datos[i])):
+            data[i][columns[j]] = str(datos[i][j])
+    return jsonify(data=data, status=200, mimetype="application/json")
+
+
+def getXmlResponse(columns, datos):
+    entries = ET.Element("entradas")
+    for i in range(len(datos)):
+        entrie = ET.SubElement(entries, "entrada")
+        for j in range(len(datos[i])):
+            element = ET.SubElement(entrie, columns[j])
+            element.text = str(datos[i][j])
+    arbol = ET.ElementTree(entries)
+    arbol = ET.tostring(arbol.getroot(), encoding="UTF-8")
+    return Response(arbol, content_type="text/xml")
+
+
 @app.route("/<table>", methods=["GET"])
 def getTable(table):
     columns = getColumns(table)
@@ -36,22 +57,28 @@ def getTable(table):
     datos = cursor.fetchall()
     cursor.close()
     if formato == "json":
-        data = []
-        for i in range(len(datos)):
-            data.append({})
-            for j in range(len(datos[i])):
-                data[i][columns[j]] = str(datos[i][j])
-        return jsonify(data=data, status=200, mimetype="application/json")
+        return getJsonResponse(columns, datos)
     elif formato == "xml":
-        entries = ET.Element("entradas")
-        for i in range(len(datos)):
-            entrie = ET.SubElement(entries, "entrada")
-            for j in range(len(datos[i])):
-                element = ET.SubElement(entrie, columns[j])
-                element.text = str(datos[i][j])
-        arbol = ET.ElementTree(entries)
-        arbol = ET.tostring(arbol.getroot(), encoding="UTF-8")
-        return Response(arbol, content_type="text/xml")
+        return getXmlResponse(columns, datos)
+    return "404 :3"
+
+
+@app.route("/<table>/<field>/<value>", methods=["GET"])
+def getTableByField(table, field, value):
+    columns = getColumns(table)
+    if not columns:
+        return "Table not found", 404
+    if field not in columns:
+        return "Field not found", 404
+    formato = request.args.get("format", "json")
+    cursor = mysql.connection.cursor()
+    cursor.execute(f"SELECT * FROM `{table}` WHERE `{field}` = %s;", (value,))
+    datos = cursor.fetchall()
+    cursor.close()
+    if formato == "json":
+        return getJsonResponse(columns, datos)
+    elif formato == "xml":
+        return getXmlResponse(columns, datos)
     return "404 :3"
 
 
