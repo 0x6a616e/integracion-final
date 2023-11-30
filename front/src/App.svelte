@@ -4,5 +4,6 @@
 </script>
 
 <div class="container">
-	<Router {routes} />
+	<Router {routes}>
+	</Router>
 </div>
