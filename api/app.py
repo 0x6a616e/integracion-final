@@ -1,5 +1,6 @@
 from os import getenv
 from flask import Flask, request, Response, jsonify
+from flask_cors import cross_origin
 from flask_mysqldb import MySQL
 import xml.etree.ElementTree as ET
 from dotenv import load_dotenv
@@ -50,6 +51,7 @@ def getXmlResponse(columns, datos):
 
 
 @app.route("/<table>", methods=["GET"])
+@cross_origin()
 def getTable(table):
     columns = getColumns(table)
     if not columns:
@@ -66,6 +68,7 @@ def getTable(table):
 
 
 @app.route("/<table>/<field>/<value>", methods=["GET"])
+@cross_origin()
 def getTableByField(table, field, value):
     columns = getColumns(table)
     if not columns:
@@ -84,6 +87,7 @@ def getTableByField(table, field, value):
 
 
 @app.route("/<table>", methods=["POST"])
+@cross_origin()
 def insertData(table):
     columns = getColumns(table)
     if not columns:
