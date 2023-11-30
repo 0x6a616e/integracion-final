@@ -1,7 +1,7 @@
 <script>
     import NavUser from "../Components/NavUser.svelte";
     import { onMount } from 'svelte';
-  import axios from 'axios';
+    import axios from 'axios';
 
     onMount(() => {
 
