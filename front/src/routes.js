@@ -11,6 +11,7 @@ import DetallesCamion from './Admin/CRUD/DetallesCamion.svelte';
 import DetallesSucursal from './Admin/CRUD/DetallesSucursal.svelte';
 import EditarCamion from './Admin/CRUD/EditarCamion.svelte';
 import EditarSucursal from './Admin/CRUD/EditarSucursal.svelte';
+import AsignarCamion from './Admin/CRUD/AsignarCamion.svelte';
 
 const routes = {
     '/':Login,
@@ -26,6 +27,7 @@ const routes = {
     '/detalles/sucursal/admin/:id': DetallesSucursal,
     '/editar/camion/admin/:id': EditarCamion,
     '/editar/sucursal/admin/:id': EditarSucursal,
+    '/asignar/camion/admin/:id':AsignarCamion
 };
 
 export default routes;
