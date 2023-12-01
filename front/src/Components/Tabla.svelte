@@ -1,6 +1,8 @@
 <script>
+	import { link } from "svelte-spa-router";
     export let tipo = "";
     export let objetos = [""];
+	export let url = "";
 </script>
 
 
@@ -23,7 +25,7 @@
                         <td> Objeto 1 </td>
                         <td>
 
-                            <button class="crud-detalles mx-2 btn btn-outline-info" value="">Detalles</button>
+                            <a href="/detalles/{url}/admin/1" use:link ><button class="crud-detalles mx-2 btn btn-outline-info" value="">Detalles</button></a>
                             <button class="crud-editar btn btn-outline-primary" value="">Editar</button>
                             <button data-type="branch" class="crud-eliminar mx-2 btn btn-outline-danger" value="">Eliminar</button>
 

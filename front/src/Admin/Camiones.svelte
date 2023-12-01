@@ -5,4 +5,4 @@
 
 <NavAdmin />
 
-<Tabla tipo="Camiones" objetos= { [] } />
+<Tabla tipo="Camiones" objetos= { [] } url="camion" />

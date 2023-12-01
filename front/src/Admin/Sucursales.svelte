@@ -5,5 +5,5 @@
 
 <NavAdmin />
 
-<Tabla tipo="Sucursal" objetos= { [] } />
+<Tabla tipo="Sucursal" objetos= { [] } url="sucursal" />
 

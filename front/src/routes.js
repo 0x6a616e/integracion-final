@@ -7,6 +7,8 @@ import Sucursales from './Admin/Sucursales.svelte';
 import Camiones from './Admin/Camiones.svelte';
 import NuevoPedidoAdmin from './Admin/CRUD/NuevoPedidoAdmin.svelte';
 import DetallesPedidoAdmin from './Admin/CRUD/DetallesPedidoAdmin.svelte'
+import DetallesCamion from './Admin/CRUD/DetallesCamion.svelte';
+import DetallesSucursal from './Admin/CRUD/DetallesSucursal.svelte';
 
 const routes = {
     '/':Login,
@@ -17,7 +19,9 @@ const routes = {
     '/sucursales': Sucursales,
     '/camiones':Camiones,
     '/nuevopedido/admin':NuevoPedidoAdmin,
-    '/detalles/pedido/admin/:id': DetallesPedidoAdmin
+    '/detalles/pedido/admin/:id': DetallesPedidoAdmin,
+    '/detalles/camion/admin/:id': DetallesCamion,
+    '/detalles/sucursal/admin/:id': DetallesSucursal,
 };
 
 export default routes;
