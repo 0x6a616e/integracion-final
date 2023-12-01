@@ -11,7 +11,7 @@
     </div>
     <div class="container">
         <div class="d-flex">
-            <a href="/nuevopedidoadmin" use:link><button class="btn btn-outline-success">Crear Nueva Orden </button></a>
+            <a href="/nuevopedido/admin" use:link><button class="btn btn-outline-success">Crear Nueva Orden </button></a>
         </div>
     </div> 
     
@@ -33,7 +33,7 @@
                         <div class="container row">
                             <div class="col">
                                     <button class="asign w-100 my-2 btn btn-outline-success" value="">Asignacion</button>
-                                    <button class="w-100 my-2 crud-detalles btn btn-outline-info" value="">Detalles</button>
+                                    <a href="/detalles/pedido/admin/1" use:link ><button class="w-100 my-2 crud-detalles btn btn-outline-info" value="">Detalles</button></a>
                             </div>
                             <div class="col">
                                 <button data-type="order" class="w-100 my-2 crud-eliminar btn btn-outline-danger" value="">Eliminar</button>

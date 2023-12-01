@@ -6,16 +6,18 @@ import PedidosAdmin from './Admin/PedidosAdmin.svelte';
 import Sucursales from './Admin/Sucursales.svelte';
 import Camiones from './Admin/Camiones.svelte';
 import NuevoPedidoAdmin from './Admin/CRUD/NuevoPedidoAdmin.svelte';
+import DetallesPedidoAdmin from './Admin/CRUD/DetallesPedidoAdmin.svelte'
 
 const routes = {
     '/':Login,
     '/nuevopedido':NuevoPedido,
     '/pedidos': Pedidos,
-    '/detallespedido/:id': DetallesPedido,
-    '/pedidosadmin': PedidosAdmin,
+    '/detalles/pedido/:id': DetallesPedido,
+    '/pedidos/admin': PedidosAdmin,
     '/sucursales': Sucursales,
     '/camiones':Camiones,
-    '/nuevopedidoadmin':NuevoPedidoAdmin
+    '/nuevopedido/admin':NuevoPedidoAdmin,
+    '/detalles/pedido/admin/:id': DetallesPedidoAdmin
 };
 
 export default routes;
