@@ -5,5 +5,4 @@
 
 <NavAdmin />
 
-<Tabla tipo="Sucursal" objetos= { [] } />
-
+<Tabla tipo="Camiones" objetos= { [] } />
