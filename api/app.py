@@ -1,6 +1,7 @@
 from os import getenv
 from flask import Flask, request, Response, jsonify
 from flask_cors import cross_origin
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from flask_mysqldb import MySQL
 import xml.etree.ElementTree as ET
 from dotenv import load_dotenv
@@ -13,6 +14,9 @@ app.config["MYSQL_HOST"] = getenv("MYSQL_HOST")
 app.config["MYSQL_USER"] = getenv("MYSQL_USER")
 app.config["MYSQL_PASSWORD"] = getenv("MYSQL_PASSWORD")
 app.config["MYSQL_DB"] = getenv("MYSQL_DB")
+app.config["JWT_SECRET_KEY"] = getenv("APP_SECRET")
+
+jwt = JWTManager(app)
 
 mysql = MySQL(app)
 
@@ -88,11 +92,28 @@ def getTableByField(table, field, value):
 
 @app.route("/<table>", methods=["POST"])
 @cross_origin()
+@jwt_required()
 def insertData(table):
     columns = getColumns(table)
     if not columns:
         return "Table not found", 404
-    return "Hola"
+    values_string = []
+    placeholders_string = []
+    values = []
+    for column in columns:
+        if request.form.get(column, None):
+            values_string.append(column)
+            placeholders_string.append("%s")
+            values.append(request.form.get(column))
+    query = f"INSERT INTO {table} ({','.join(values_string)}) VALUES ({','.join(placeholders_string)});"
+    cursor = mysql.connection.cursor()
+    try:
+        cursor.execute(query, values)
+        mysql.connection.commit()
+        return "OK", 201
+    except:
+        cursor.close()
+        return "Error", 500
 
 
 if __name__ == "__main__":

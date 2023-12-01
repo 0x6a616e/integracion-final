@@ -14,6 +14,7 @@ app.config["MYSQL_USER"] = getenv("MYSQL_USER")
 app.config["MYSQL_PASSWORD"] = getenv("MYSQL_PASSWORD")
 app.config["MYSQL_DB"] = getenv("MYSQL_DB")
 app.config["JWT_SECRET_KEY"] = getenv("APP_SECRET")
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = False
 
 jwt = JWTManager(app)
 
