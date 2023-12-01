@@ -1,6 +1,9 @@
 <script>
 
 	import {link} from 'svelte-spa-router';
+	import { logout } from '../js/logout';
+
+	
 
 </script>
 
@@ -36,7 +39,7 @@
 					</li>
 
 				</ul>
-				<button class="btn btn-outline-danger" id="btn-logout">Log out</button>
+				<button class="btn btn-outline-danger" id="btn-logout" on:click={ logout }>Log out</button>
 			</div>
         </div>
     </nav>

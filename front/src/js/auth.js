@@ -1,4 +1,5 @@
-export function isAuthenticated() {
+
+export const isAuthenticated = () => {
     const storedUsername = localStorage.getItem('username');
     const storedPassword = localStorage.getItem('password');
   
