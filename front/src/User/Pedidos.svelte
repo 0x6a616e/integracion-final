@@ -24,7 +24,7 @@
 						<tr>
 							<td> 1 </td>
 							<td>
-								<a href="/detallespedido/1" use:link ><button class="crud-detalles mx-2 btn btn-outline-info" value="">Detalles</button></a>
+								<a href="/detalles/pedido/1" use:link ><button class="crud-detalles mx-2 btn btn-outline-info" value="">Detalles</button></a>
 
 							</td>
 						</tr>
