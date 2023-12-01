@@ -110,10 +110,38 @@ def insertData(table):
     try:
         cursor.execute(query, values)
         mysql.connection.commit()
+        cursor.close()
         return "OK", 201
     except:
         cursor.close()
         return "Error", 500
+
+
+@app.route("/<table>/<id>", methods=["PATCH"])
+@cross_origin()
+@jwt_required()
+def updateData(table, id):
+    columns = getColumns(table)
+    if not columns:
+        return "Table not found", 404
+    sets = []
+    values = []
+    for column in columns:
+        if request.form.get(column, None):
+            sets.append(column + " = %s")
+            values.append(request.form.get(column))
+    values.append(id)
+    query = f"UPDATE {table} SET {','.join(sets)} WHERE id = %s;"
+    cursor = mysql.connection.cursor()
+    try:
+        cursor.execute(query, values)
+        mysql.connection.commit()
+        cursor.close()
+        return "OK", 200
+    except:
+        cursor.close()
+        return "Error", 500
+    return "H\n"
 
 
 if __name__ == "__main__":
