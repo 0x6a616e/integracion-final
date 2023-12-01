@@ -1,6 +1,15 @@
 <script>
-    import { link } from 'svelte-spa-router';
+    import { onMount } from 'svelte';
+	import { isAuthenticated } from '../js/auth';
+    import { link, push } from 'svelte-spa-router';
     import NavAdmin from '../Components/NavAdmin.svelte';
+
+    onMount(() => {
+		if (!isAuthenticated()){
+			push('/');
+		}
+	});
+
 </script>
 
 <NavAdmin />

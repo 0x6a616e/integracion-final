@@ -1,6 +1,7 @@
 <script>
     import { onMount } from 'svelte';
     import { isAuthenticated } from '../js/auth';
+    import { push } from 'svelte-spa-router';
     import axios from 'axios';
     import NavUser from "../Components/NavUser.svelte";
     
