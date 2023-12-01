@@ -27,14 +27,15 @@ def login():
     cursor = mysql.connection.cursor()
     username = request.form.get("username", "")
     password = request.form.get("password", "")
-    cursor.execute("SELECT id FROM identity WHERE username = %s AND password = %s;", (username, password))
-    id = cursor.fetchone()
+    cursor.execute("SELECT id, is_admin FROM identity WHERE username = %s AND password = %s;", (username, password))
+    data = cursor.fetchone()
     cursor.close()
-    if id:
-        token = create_access_token(identity=id[0])
-    else:
-        token = ""
-    return jsonify(token=token)
+    json_data = {"user_id": None, "is_admin": None, "token": None}
+    if data:
+        json_data["user_id"] = data[0]
+        json_data["is_admin"] = data[1]
+        json_data["token"] = create_access_token(identity=data[0])
+    return jsonify(json_data)
 
 
 if __name__ == "__main__":
