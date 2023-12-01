@@ -141,7 +141,6 @@ def updateData(table, id):
     except:
         cursor.close()
         return "Error", 500
-    return "H\n"
 
 
 if __name__ == "__main__":
