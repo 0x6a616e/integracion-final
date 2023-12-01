@@ -4,6 +4,7 @@ import DetallesPedido from './User/DetallesPedido.svelte';
 import Pedidos from './User/Pedidos.svelte';
 import PedidosAdmin from './Admin/PedidosAdmin.svelte';
 import Sucursales from './Admin/Sucursales.svelte';
+import Camiones from './Admin/Camiones.svelte';
 
 const routes = {
     '/':Login,
@@ -12,6 +13,7 @@ const routes = {
     '/detallespedido/:id': DetallesPedido,
     '/pedidosadmin': PedidosAdmin,
     '/sucursales': Sucursales,
+    '/camiones':Camiones
 };
 
 export default routes;
