@@ -1,4 +1,5 @@
 <script>
+    import { link } from 'svelte-spa-router';
     import NavAdmin from '../Components/NavAdmin.svelte';
 </script>
 
@@ -10,7 +11,7 @@
     </div>
     <div class="container">
         <div class="d-flex">
-            <a href="/"><button class="btn btn-outline-success">Crear Nueva Orden </button></a>
+            <a href="/nuevopedidoadmin" use:link><button class="btn btn-outline-success">Crear Nueva Orden </button></a>
         </div>
     </div> 
     

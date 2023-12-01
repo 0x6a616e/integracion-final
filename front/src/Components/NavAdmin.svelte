@@ -13,7 +13,7 @@
 					
 					<li class="nav-item">
 
-					<a class="nav-link active" aria-current="page" href="/pedidiosadmin" use:link >Pedidos </a>
+					<a class="nav-link active" aria-current="page" href="/pedidosadmin" use:link >Pedidos </a>
 
 					</li>
 
