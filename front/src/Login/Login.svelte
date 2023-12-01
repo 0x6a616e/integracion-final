@@ -1,5 +1,5 @@
 <script>
-    import {link, push} from "svelte-spa-router"
+    import {push} from 'svelte-spa-router';
     import Swal from 'sweetalert2';
     import axios from 'axios';
 
@@ -19,7 +19,17 @@
                 }
             });*/
 
-            Swal.fire('Logeado', 'Datos completos', 'success');
+            localStorage.setItem('username', 'usuario');
+            localStorage.setItem('password', 'contraseña');
+
+            Swal.fire({
+                title: 'Loggeado',
+                text: 'Inicio de sesión correcto',
+                icon: 'success',
+                confirmButtonText: 'Cool',
+            });
+
+            push('/pedidos');
         }else{
             Swal.fire('Oops', 'Datos incompletos', 'error');
         }

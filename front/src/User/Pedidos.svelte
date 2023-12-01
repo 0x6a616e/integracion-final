@@ -1,7 +1,17 @@
 <script>
-    import { link } from 'svelte-spa-router';
-
+    import { link, push } from 'svelte-spa-router';
+	import { onMount } from 'svelte';
+	import { isAuthenticated } from '../js/auth';
     import NavUser from "../Components/NavUser.svelte";
+
+	onMount(() => {
+		if (!isAuthenticated()){
+			push('/');
+		}
+	});
+
+
+
 </script>
 
 <NavUser />

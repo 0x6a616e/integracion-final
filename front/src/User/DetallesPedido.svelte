@@ -1,5 +1,6 @@
 <script>
-
+    import { onMount } from 'svelte';
+	import { isAuthenticated } from '../js/auth';
     import NavUser from "../Components/NavUser.svelte";
     import Detalles from "../Components/Detalles.svelte";
 

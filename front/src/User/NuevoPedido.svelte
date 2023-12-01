@@ -1,9 +1,14 @@
 <script>
-    import NavUser from "../Components/NavUser.svelte";
     import { onMount } from 'svelte';
+    import { isAuthenticated } from '../js/auth';
     import axios from 'axios';
-
+    import NavUser from "../Components/NavUser.svelte";
+    
     onMount(() => {
+
+		if (!isAuthenticated()){
+			push('/');
+		}
 
         const handleClick = async () => {
             try {
