@@ -2,17 +2,16 @@
     import { onMount } from 'svelte';
 	import { isAuthenticated } from '../../js/auth';
     import { push } from 'svelte-spa-router';
-    import NavAdmin from '../../Components/NavAdmin.svelte';
-    import Detalles from '../../Components/Detalles.svelte';
-
+    import Editar from "../../Components/Editar.svelte";
+    import NavAdmin from "../../Components/NavAdmin.svelte";    
+    export let params = {};
     onMount(() => {
 		if (!isAuthenticated()){
 			push('/');
 		}
 	});
-
 </script>
 
 <NavAdmin />
 
-<Detalles x = 0 y = 0 items = { [] }/>
+<Editar label = "Camion" table = "truck" id = "{ params.id}"/>

@@ -1,6 +1,15 @@
 <script>
-    import { link } from 'svelte-spa-router';
+    import { onMount } from 'svelte';
+	import { isAuthenticated } from '../js/auth';
+    import { link, push } from 'svelte-spa-router';
     import NavAdmin from '../Components/NavAdmin.svelte';
+
+    onMount(() => {
+		if (!isAuthenticated()){
+			push('/');
+		}
+	});
+
 </script>
 
 <NavAdmin />
@@ -32,7 +41,7 @@
                     <td class="t2">
                         <div class="container row">
                             <div class="col">
-                                    <button class="asign w-100 my-2 btn btn-outline-success" value="">Asignacion</button>
+                                    <a href="/asignar/camion/admin/1" use:link><button class="asign w-100 my-2 btn btn-outline-success" value="">Asignacion</button></a>
                                     <a href="/detalles/pedido/admin/1" use:link ><button class="w-100 my-2 crud-detalles btn btn-outline-info" value="">Detalles</button></a>
                             </div>
                             <div class="col">
