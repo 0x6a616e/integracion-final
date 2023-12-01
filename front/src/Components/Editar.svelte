@@ -2,7 +2,7 @@
 
     export let label = "";
     export let table = "";
-    export let params = {};
+    export let id = "";
 
 </script>
 
@@ -12,7 +12,7 @@
     </div>
     <div class="container my-5">
 
-        <h5>ID { label } : {params.first} </h5>
+        <h5>ID { label } : { id } </h5>
     </div>
     <form action="" method="POST">
 
