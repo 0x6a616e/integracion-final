@@ -26,4 +26,4 @@
 
 <NavAdmin />
 
-<Tabla tipo="Camiones" objetos= { camiones } url="camion" />
+<Tabla tipo="Camiones" objetos= { camiones } url="camion" tabla = "truck"/>

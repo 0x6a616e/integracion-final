@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
 	import { isAuthenticated } from '../js/auth';
     import { link, push } from 'svelte-spa-router';
-    import { getFunction } from '../js/asyncFunctions';
+    import { getFunction, deleteData} from '../js/asyncFunctions';
     import NavAdmin from '../Components/NavAdmin.svelte';
 
     let ordenes = [];
@@ -51,7 +51,7 @@
                                     <a href="/detalles/pedido/admin/{orden.id}" use:link ><button class="w-100 my-2 crud-detalles btn btn-outline-info" value="">Detalles</button></a>
                             </div>
                             <div class="col">
-                                <button data-type="order" class="w-100 my-2 crud-eliminar btn btn-outline-danger" value="">Eliminar</button>
+                                <button on:click={() => deleteData(`http://34.70.30.227:5000/data/orders/${orden.id}`)} class="w-100 my-2 crud-eliminar btn btn-outline-danger" value="">Eliminar</button>
                             </div>
                         </div>
                     </td>

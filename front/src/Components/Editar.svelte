@@ -1,5 +1,5 @@
 <script>
-
+    import {patchForm} from '../js/asyncFunctions';
     export let label = "";
     export let id = "";
     export let attrs = [];
@@ -14,7 +14,8 @@
 
         <h5>ID { label } : { id } </h5>
     </div>
-    <form action="" method="POST">
+
+    <form on:submit|preventDefault={() => patchForm(`http://34.70.30.227:5000/data/${table}/${id}`)} id="form-product">
 
         <div class="row">
             <div class="col">

@@ -4,6 +4,7 @@
     import { isAuthenticated } from '../../js/auth';
     import { push } from 'svelte-spa-router';
     import {getFunction} from '../../js/asyncFunctions';
+    import {alertaExito} from '../../js/showAlert';
     import axios from "axios";
     import NavAdmin from "../../Components/NavAdmin.svelte";
 
@@ -12,7 +13,14 @@
     const submitForm = async () => {
         const form = document.getElementById('form-product');
         const headers = {headers : {'Authorization' : `Bearer ${localStorage.getItem('token')}`} }  
-        await axios.post('http://34.70.30.227:5000/order', form, headers );
+        await axios.post('http://34.70.30.227:5000/order', form, headers )
+        .then( response =>{
+            alertaExito();
+            push('/');
+        })
+        .catch(error => {
+            console.log(error)
+        });
     }
 
     onMount( async () => {

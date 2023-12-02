@@ -2,12 +2,16 @@
     import { onMount } from 'svelte';
 	import { isAuthenticated } from '../../js/auth';
     import { push } from 'svelte-spa-router';
-    import {getFunction} from '../../js/asyncFunctions';
+    import {getFunction, patchForm} from '../../js/asyncFunctions';
     import NavAdmin from '../../Components/NavAdmin.svelte';
+
+    export let params = {};
     
     let sucursales = [];
 
     let compañias = [];
+
+    let camiones = [];
 
     onMount(async () => {
 		if (!isAuthenticated() || localStorage.getItem('admin') != '1' ){
@@ -17,6 +21,8 @@
         sucursales = await getFunction('http://34.70.30.227:5000/data/branch');
 
         compañias = await getFunction('http://34.70.30.227:5000/data/company');
+
+        camiones = await getFunction('http://34.70.30.227:5000/data/truck');
 	});
 
 </script>
@@ -28,7 +34,7 @@
         <h1 class="text-center mb-5"> Asignar  Orden </h1>
     </div>
 
-    <form action="/orders/asign/payment" method="POST">
+    <form  on:submit|preventDefault={() => patchForm(`http://34.70.30.227:5000/order/${params.id}`)} id="form-product">
         
         <div class="col">
             <div class="branches my-3">
@@ -59,10 +65,16 @@
             
             <div class="vehicle my-3">
                 
-                <label for="vehicle" class="form-label">Seleccione un vehiculo </label>
+                <label for="truck" class="form-label">Seleccione un vehiculo </label>
                 
-                <select id="vehicle" class="form-select" name="vehicle" aria-label="Default select example">
+                <select id="vehicle" class="form-select" name="truck" aria-label="Default select example">
                     <option selected> -- Selecciona un Vehiculo -- </option>
+
+
+                    {#each camiones as camion}
+                        <option value="{camion.id}"> {camion.name} </option>
+                    {/each}
+
                 </select>
             </div>
         </div>

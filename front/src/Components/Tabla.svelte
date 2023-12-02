@@ -1,8 +1,10 @@
 <script>
 	import { link } from "svelte-spa-router";
+	import {deleteData} from "../js/asyncFunctions";
     export let tipo = "";
     export let objetos = [""];
 	export let url = "";
+	export let tabla = "";
 </script>
 
 
@@ -28,7 +30,7 @@
 
 								<a href="/detalles/{url}/admin/{objeto.id}" use:link ><button class="crud-detalles mx-2 btn btn-outline-info" value="">Detalles</button></a>
 								<a href="/editar/{url}/admin/{objeto.id}" use:link ><button class="crud-editar btn btn-outline-primary" value="">Editar</button></a>
-								<button data-type="branch" class="crud-eliminar mx-2 btn btn-outline-danger" value="">Eliminar</button>
+								<button on:click={() => deleteData(`http://34.70.30.227:5000/data/${tabla}/${objeto.id}`)} class="crud-eliminar mx-2 btn btn-outline-danger" value="">Eliminar</button>
 
 							</td>
 						</tr>

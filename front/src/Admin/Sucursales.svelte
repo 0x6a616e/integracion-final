@@ -21,5 +21,5 @@
 
 <NavAdmin />
 
-<Tabla tipo="Sucursal" objetos= { sucursales } url="sucursal" />
+<Tabla tipo="Sucursal" objetos= { sucursales } url="sucursal" tabla = "branch"/>
 
