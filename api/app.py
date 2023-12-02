@@ -1,7 +1,7 @@
 from os import getenv
 from flask import Flask, request, Response, jsonify
 from flask_cors import cross_origin
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager, jwt_required
 from flask_mysqldb import MySQL
 import xml.etree.ElementTree as ET
 from dotenv import load_dotenv
@@ -179,13 +179,15 @@ def getOrderDetails(id):
 @cross_origin()
 @jwt_required()
 def insertOrder():
-    cursor = mysql.connection.cursor()
-    lat = request.form.get("latitude")
-    lng = request.form.get("longitude")
-    query = "INSERT INTO orders (latitude, longitude) VALUES (%s, %s);"
-    cursor.execute(query, (lat, lng))
-    mysql.connection.commit()
-    cursor.close()
+    print(request.form)
+    # cursor = mysql.connection.cursor()
+    # lat = request.form.get("latitud")
+    # lng = request.form.get("longitud")
+    # query = "INSERT INTO orders (latitude, longitude) VALUES (%s, %s);"
+    # cursor.execute(query, (lat, lng))
+    # mysql.connection.commit()
+    # order_id = cursor.lastrowid
+    # cursor.close()
     return "OK", 201
 
 
