@@ -30,14 +30,30 @@
                 
                 const data = res.data;
 
-                localStorage.setItem('id', data.user_id);
-                localStorage.setItem('admin', data.is_admin);
-                localStorage.setItem('token', data.token);
+                console.log(data);
 
-                if(localStorage.getItem('admin') === '1'){
-                    push('/pedidos/admin');
+                if(data.user_id != null){
+
+                    localStorage.setItem('id', data.user_id);
+                    localStorage.setItem('admin', data.is_admin);
+                    localStorage.setItem('token', data.token);
+
+                    Swal.fire({
+                        title: 'Loggeado',
+                        text: 'Inicio de sesión correcto',
+                        icon: 'success',
+                        confirmButtonText: 'Cool',
+                    });
+
+                    if(localStorage.getItem('admin') === '1'){
+                        push('/pedidos/admin');
+                    }else{
+                        push('/pedidos');
+                    }
                 }else{
-                    push('/pedidos');
+
+                    Swal.fire('Oops', 'Datos incorrectos', 'error');
+                    push('/');
                 }
 
             })
@@ -45,15 +61,6 @@
                 console.log(error);
             });
 
-
-            Swal.fire({
-                title: 'Loggeado',
-                text: 'Inicio de sesión correcto',
-                icon: 'success',
-                confirmButtonText: 'Cool',
-            });
-
-            push('/pedidos');
         }else{
             Swal.fire('Oops', 'Datos incompletos', 'error');
         }

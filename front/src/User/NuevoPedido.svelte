@@ -13,16 +13,15 @@
 
         const handleClick = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/anillos');
-                const data = response.data;
+                const response = await axios.get('http://34.70.30.227:5000/products');
+                const data = response.data.data;
 
                 const dropdown = document.createElement("select");
                 dropdown.classList.add("form-select", "w-50", "mt-2");
                 dropdown.setAttribute('name', 'modelo');
-
                 data.forEach(objeto => {
                     const opcion = document.createElement("option");
-                    opcion.text = objeto[0] + " | " + objeto[1];
+                    opcion.text = objeto.id + " | " + objeto.description;
                     dropdown.add(opcion);
                 });
 
