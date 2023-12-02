@@ -13,7 +13,7 @@
 			push('/');
 		}
 
-        sucursales = await getFunction('http://34.70.30.227:5000/branch');
+        sucursales = await getFunction('http://34.70.30.227:5000/data/branch');
 
 	});
 

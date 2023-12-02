@@ -11,7 +11,7 @@
 			push('/');
 		}
 
-        ordenes = await getFunction('http://34.70.30.227:5000/orders');
+        ordenes = await getFunction('http://34.70.30.227:5000/data/orders');
 
 	});
 

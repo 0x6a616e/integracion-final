@@ -2,12 +2,21 @@
     import { onMount } from 'svelte';
 	import { isAuthenticated } from '../../js/auth';
     import { push } from 'svelte-spa-router';
+    import {getFunction} from '../../js/asyncFunctions';
     import NavAdmin from '../../Components/NavAdmin.svelte';
+    
+    let sucursales = [];
 
-    onMount(() => {
+    let compañias = [];
+
+    onMount(async () => {
 		if (!isAuthenticated() || localStorage.getItem('admin') != '1' ){
 			push('/');
 		}
+
+        sucursales = await getFunction('http://34.70.30.227:5000/data/branch');
+
+        compañias = await getFunction('http://34.70.30.227:5000/data/company');
 	});
 
 </script>
@@ -28,7 +37,9 @@
                 
                 <select id="branches" class="form-select" name="branch" aria-label="Default select example">
                     <option selected> -- Selecciona un Sucursal -- </option>
-                    <option value=""> Sucursal 1 </option>
+                    {#each sucursales as sucursal}
+                        <option value="{sucursal.id}"> {sucursal.name} </option>
+                    {/each}
                 </select>
             </div>
             
@@ -39,7 +50,10 @@
                 <select id="company" class="form-select" name="company" aria-label="Default select example">
                     <option selected> -- Selecciona un Compañia -- </option>
                 
-                    </select>
+                    {#each compañias as compañia}
+                        <option value="{compañia.id}"> {compañia.name} </option>
+                    {/each}
+                </select>
 
             </div>
             

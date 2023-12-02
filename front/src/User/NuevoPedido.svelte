@@ -5,15 +5,24 @@
     import axios from 'axios';
     import NavUser from "../Components/NavUser.svelte";
     
+    const submitForm = async () => {
+        const form = document.getElementById('form-product');
+        const headers = {headers : {'Authorization' : `Bearer ${localStorage.getItem('token')}`} }  
+        await axios.post('http://34.70.30.227:5000/order', form, headers );
+
+    }
+
     onMount(() => {
 
 		if (!isAuthenticated() || localStorage.getItem('admin') != '0'){
 			push('/');
 		}
 
+        
+
         const handleClick = async () => {
             try {
-                const response = await axios.get('http://34.70.30.227:5000/products');
+                const response = await axios.get('http://34.70.30.227:5000/data/products');
                 const data = response.data.data;
 
                 const dropdown = document.createElement("select");
@@ -22,6 +31,7 @@
                 data.forEach(objeto => {
                     const opcion = document.createElement("option");
                     opcion.text = objeto.id + " | " + objeto.description;
+                    opcion.setAttribute("value",objeto.id)
                     dropdown.add(opcion);
                 });
 
@@ -49,7 +59,7 @@
 <NavUser />
 
 <div class="container mt-4 bg-white rounded shadow pt-5 pb-5 p-5 h-100 mb-5">
-    <form action="/register-order" method="POST">
+    <form on:submit|preventDefault={submitForm} id="form-product">
         <div class="mb-3">
             <label for="nombre" class="form-label">Latitud de la direccion</label>
             <input type="text" class="form-control" id="latitud" name="latitud">

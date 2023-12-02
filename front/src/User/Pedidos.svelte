@@ -14,7 +14,7 @@
 
 		}
 
-		datos = await getFunction('http://34.70.30.227:5000/orders/identity_id/' + localStorage.getItem('id'));
+		datos = await getFunction('http://34.70.30.227:5000/data/orders/identity_id/' + localStorage.getItem('id'));
 
 	});
 

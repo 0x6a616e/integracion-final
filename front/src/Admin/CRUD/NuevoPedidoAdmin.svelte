@@ -3,18 +3,30 @@
     import { onMount } from "svelte";
     import { isAuthenticated } from '../../js/auth';
     import { push } from 'svelte-spa-router';
+    import {getFunction} from '../../js/asyncFunctions';
+    import axios from "axios";
     import NavAdmin from "../../Components/NavAdmin.svelte";
 
-    onMount(() => {
+    let users = [];
+
+    const submitForm = async () => {
+        const form = document.getElementById('form-product');
+        const headers = {headers : {'Authorization' : `Bearer ${localStorage.getItem('token')}`} }  
+        await axios.post('http://34.70.30.227:5000/order', form, headers );
+    }
+
+    onMount( async () => {
 
         if (!isAuthenticated() || localStorage.getItem('admin') != '1'){
 			push('/');
 		}
 
+        users = await getFunction('http://34.70.30.227:5000/data/identity');
+
         const handleClick = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/anillos');
-                const data = response.data;
+                const response = await axios.get('http://34.70.30.227:5000/data/products');
+                const data = response.data.data;
 
                 const dropdown = document.createElement("select");
                 dropdown.classList.add("form-select", "w-50", "mt-2");
@@ -22,7 +34,8 @@
 
                 data.forEach(objeto => {
                     const opcion = document.createElement("option");
-                    opcion.text = objeto[0] + " | " + objeto[1];
+                    opcion.text = objeto.id + " | " + objeto.description;
+                    opcion.setAttribute("value", objeto.id)
                     dropdown.add(opcion);
                 });
 
@@ -51,14 +64,14 @@
 
 <div class="container mt-4 bg-white rounded shadow pt-5 pb-5 p-5 h-100 mb-5">
 
-        <form action="/" method="POST">
+        <form on:submit|preventDefault={submitForm} id="form-product">
             
             <div class="mb-3">
                 <label for="id_user" class="form-label">Selecciona el id del usuario</label>
                 <select class="form-select" name="id_user" aria-label="Default select example">
-
-                        <option value=""> 1 </option>
-
+                    {#each users as user}
+                        <option value="{user.id}"> {user.id} </option>
+                    {/each}
                 </select>
             </div>
 

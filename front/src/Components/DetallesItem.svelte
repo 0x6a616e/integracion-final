@@ -1,6 +1,6 @@
 <script>
     export let tipo = "";
-    export let items = [];
+    export let tables = [];
 </script>
 
 <div class="container mt-5 bg-white rounded shadow pt-5 pb-5 p-5 h-100 mb-5 w-100">
@@ -14,11 +14,12 @@
                 <th> Valor </th>
             </thead>
             <tbody>
-                <tr>
-                    <td> Atributo </td>
-                    <td> Valor </td>
-                </tr>
-
+                {#each tables as table }
+                    <tr>
+                        <td> {table[0]} </td>
+                        <td> {table[1][1]} </td>
+                    </tr>
+                {/each}
             </tbody>
         </table>
 

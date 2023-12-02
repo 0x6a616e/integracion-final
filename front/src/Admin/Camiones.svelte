@@ -13,7 +13,7 @@
 			push('/');
 		}
 
-        camiones = await getFunction('http://34.70.30.227:5000/truck');
+        camiones = await getFunction('http://34.70.30.227:5000/data/truck');
 
 	});
 

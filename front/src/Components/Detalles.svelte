@@ -20,7 +20,7 @@
     <div class="row mt-5">
         <div class="col">
 
-            <Map />
+            <Map x = {x} y = {y} />
 
         </div>
 
@@ -35,12 +35,12 @@
 				</thead>
 
 				<tbody class="w-100">
+                    {#each items as item}
 						<tr>
-						    <td> 22 kilates  </td>
-							<td>
-                                2
-							</td>
+						    <td> {item.name}  </td>
+							<td> {item.quantity}</td>
 						</tr>
+                    {/each}
 				</tbody>
 			</table>
         </div>

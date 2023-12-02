@@ -1,9 +1,9 @@
 <script>
 
     export let label = "";
-    export let table = "";
     export let id = "";
-
+    export let attrs = [];
+    export let table = "";
 </script>
 
 <div class="container mt-5 bg-white rounded shadow pt-5 pb-5 p-5 h-100 mb-5 w-100">
@@ -21,7 +21,9 @@
                 <label for="atributo" class="form-label"> Atributo </label>
                 <select class="form-select" name="atributo" aria-label="Default select example">
                     <option selected> -- Selecciona un Atributo -- </option>
-                    <option value="1"> 1 </option>
+                    {#each attrs as  attr }
+                        <option value="{attr}"> {attr} </option>
+                    {/each}
                 </select>
             </div>
             <div class="col">
