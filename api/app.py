@@ -54,7 +54,16 @@ def getXmlResponse(columns, datos):
     return Response(arbol, content_type="text/xml")
 
 
-@app.route("/<table>", methods=["GET"])
+@app.route("/attr/<table>", methods=["GET"])
+@cross_origin()
+def getAttrs(table):
+    columns = getColumns(table)
+    if not columns:
+        return "Table not found", 404
+    return jsonify(data=columns, status=200, mimetype="application/json")
+
+
+@app.route("/data/<table>", methods=["GET"])
 @cross_origin()
 def getTable(table):
     columns = getColumns(table)
@@ -71,7 +80,7 @@ def getTable(table):
         return getXmlResponse(columns, datos)
 
 
-@app.route("/<table>/<field>/<value>", methods=["GET"])
+@app.route("/data/<table>/<field>/<value>", methods=["GET"])
 @cross_origin()
 def getTableByField(table, field, value):
     columns = getColumns(table)
@@ -90,7 +99,7 @@ def getTableByField(table, field, value):
         return getXmlResponse(columns, datos)
 
 
-@app.route("/<table>", methods=["POST"])
+@app.route("/data/<table>", methods=["POST"])
 @cross_origin()
 @jwt_required()
 def insertData(table):
@@ -117,7 +126,7 @@ def insertData(table):
         return "Error", 500
 
 
-@app.route("/<table>/<id>", methods=["PATCH"])
+@app.route("/data/<table>/<id>", methods=["PATCH"])
 @cross_origin()
 @jwt_required()
 def updateData(table, id):
