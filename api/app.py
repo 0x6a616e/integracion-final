@@ -198,7 +198,7 @@ def getOrderDetails(id):
 @cross_origin()
 @jwt_required()
 def updateOrderDetails(id):
-    branch_id = request.form("branch")
+    branch_id = request.form.get("branch")
     cursor = mysql.connection.cursor()
     query = "UPDATE orders SET branch_id = %s WHERE id = %s;"
     cursor.execute(query, (branch_id, id))
