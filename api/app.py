@@ -133,17 +133,12 @@ def updateData(table, id):
     columns = getColumns(table)
     if not columns:
         return "Table not found", 404
-    sets = []
-    values = []
-    for column in columns:
-        if request.form.get(column, None):
-            sets.append(column + " = %s")
-            values.append(request.form.get(column))
-    values.append(id)
-    query = f"UPDATE {table} SET {','.join(sets)} WHERE id = %s;"
+    attr = request.form.get("atributo")
+    val = request.form.get("valor")
+    query = f"UPDATE {table} SET {attr} = %s WHERE id = %s;"
     cursor = mysql.connection.cursor()
     try:
-        cursor.execute(query, values)
+        cursor.execute(query, (val, id))
         mysql.connection.commit()
         cursor.close()
         return "OK", 200
