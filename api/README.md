@@ -36,3 +36,8 @@ Esta ruta con el método GET regresa las columnas de la tabla solicitada
 /order/<id>
 
 Esta ruta con el método GET regresa la información de la orden completa
+
+/order
+
+Esta ruta con el método POST sirve para insertar una orden completa, esta
+protegida por JWT

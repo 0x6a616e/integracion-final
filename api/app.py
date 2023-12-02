@@ -179,7 +179,14 @@ def getOrderDetails(id):
 @cross_origin()
 @jwt_required()
 def insertOrder():
-    return "Hola", 200
+    cursor = mysql.connection.cursor()
+    lat = request.form.get("latitude")
+    lng = request.form.get("longitude")
+    query = "INSERT INTO orders (latitude, longitude) VALUES (%s, %s);"
+    cursor.execute(query, (lat, lng))
+    mysql.connection.commit()
+    cursor.close()
+    return "OK", 201
 
 
 if __name__ == "__main__":
