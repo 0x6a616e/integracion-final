@@ -152,5 +152,27 @@ def updateData(table, id):
         return "Error", 500
 
 
+@app.route("/order/<id>", methods=["GET"])
+def getOrderDetails(id):
+    cursor = mysql.connection.cursor()
+    query = "SELECT latitude, longitude FROM orders WHERE id = %s;"
+    cursor.execute(query, (id,))
+    json_data = {}
+    data = cursor.fetchone()
+    json_data["latitude"] = data[0]
+    json_data["longitude"] = data[1]
+    json_data["products"] = []
+    query = "SELECT description, quantity FROM order_detail, products WHERE order_detail.order_id = %s AND order_detail.product_id = products.id;"
+    cursor.execute(query, (id,))
+    data = cursor.fetchall()
+    for entry in data:
+        product = {}
+        product["name"] = entry[0]
+        product["quantity"] = entry[1]
+        json_data["products"].append(product)
+    cursor.close()
+    return jsonify(data=json_data, status=200, mimetype="application/json")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
