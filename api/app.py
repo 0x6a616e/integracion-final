@@ -194,6 +194,19 @@ def getOrderDetails(id):
     return jsonify(data=json_data, status=200, mimetype="application/json")
 
 
+@app.route("/order/<id>", methods=["PATCH"])
+@cross_origin()
+@jwt_required()
+def updateOrderDetails(id):
+    branch_id = request.form("branch")
+    cursor = mysql.connection.cursor()
+    query = "UPDATE orders SET branch_id = %s WHERE id = %s;"
+    cursor.execute(query, (branch_id, id))
+    mysql.connection.commit()
+    cursor.close()
+    return "OK", 200
+
+
 @app.route("/order", methods=["POST"])
 @cross_origin()
 @jwt_required()
