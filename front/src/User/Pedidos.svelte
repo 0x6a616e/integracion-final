@@ -2,18 +2,11 @@
     import { link, push } from 'svelte-spa-router';
 	import { onMount } from 'svelte';
 	import { isAuthenticated } from '../js/auth';
-	import axios from 'axios';
-
+	import {getFunction} from '../js/asyncFunctions';
     import NavUser from "../Components/NavUser.svelte";
 
 	let datos = [];
-
-	const getOrders = async () => {
-		const url = 'http://34.70.30.227:5000/orders/identity_id/' + localStorage.getItem('id');
-		const response = await axios.get(url);		
-		return response.data.data;
-	}
-
+	
 	onMount( async () => {
 		if (!isAuthenticated() || localStorage.getItem('admin') != '0'){
 			push('/');
@@ -21,11 +14,7 @@
 
 		}
 
-		const data = await getOrders();
-
-		datos = data;
-
-		console.log(datos);
+		datos = await getFunction('http://34.70.30.227:5000/orders/identity_id/' + localStorage.getItem('id'));
 
 	});
 
@@ -54,9 +43,7 @@
 						<tr>
 							<td> {dato.id }</td>
 							<td>
-
 								<a href="/detalles/pedido/{dato.id}" use:link ><button class="crud-detalles mx-2 btn btn-outline-info" value="">Detalles</button></a>
-
 							</td>
 						</tr>
 					{/each}

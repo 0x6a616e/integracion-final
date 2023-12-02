@@ -2,12 +2,17 @@
     import { onMount } from 'svelte';
 	import { isAuthenticated } from '../js/auth';
     import { link, push } from 'svelte-spa-router';
+    import { getFunction } from '../js/asyncFunctions';
     import NavAdmin from '../Components/NavAdmin.svelte';
 
-    onMount(() => {
+    let ordenes = [];
+    onMount(async () => {
 		if (!isAuthenticated() || localStorage.getItem('admin') != '1'){
 			push('/');
 		}
+
+        ordenes = await getFunction('http://34.70.30.227:5000/orders');
+
 	});
 
 </script>
@@ -35,14 +40,15 @@
         </thead>
 
         <tbody class="w-100">
+            {#each ordenes as orden}
                 <tr>
-                    <td class="t1"> 1 </td>
-                    <td class="t1"> Orden 1 </td>
+                    <td class="t1"> {orden.id} </td>
+                    <td class="t1"> {orden.status} </td>
                     <td class="t2">
                         <div class="container row">
                             <div class="col">
-                                    <a href="/asignar/camion/admin/1" use:link><button class="asign w-100 my-2 btn btn-outline-success" value="">Asignacion</button></a>
-                                    <a href="/detalles/pedido/admin/1" use:link ><button class="w-100 my-2 crud-detalles btn btn-outline-info" value="">Detalles</button></a>
+                                    <a href="/asignar/camion/admin/{orden.id}" use:link><button class="asign w-100 my-2 btn btn-outline-success" value="">Asignacion</button></a>
+                                    <a href="/detalles/pedido/admin/{orden.id}" use:link ><button class="w-100 my-2 crud-detalles btn btn-outline-info" value="">Detalles</button></a>
                             </div>
                             <div class="col">
                                 <button data-type="order" class="w-100 my-2 crud-eliminar btn btn-outline-danger" value="">Eliminar</button>
@@ -50,6 +56,7 @@
                         </div>
                     </td>
                 </tr>
+            {/each}
         </tbody>
         </table>
     </div>
