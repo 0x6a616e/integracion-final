@@ -153,6 +153,7 @@ def updateData(table, id):
 
 
 @app.route("/order/<id>", methods=["GET"])
+@cross_origin()
 def getOrderDetails(id):
     cursor = mysql.connection.cursor()
     query = "SELECT latitude, longitude FROM orders WHERE id = %s;"
@@ -172,6 +173,13 @@ def getOrderDetails(id):
         json_data["products"].append(product)
     cursor.close()
     return jsonify(data=json_data, status=200, mimetype="application/json")
+
+
+@app.route("/order", methods=["POST"])
+@cross_origin()
+@jwt_required()
+def insertOrder():
+    return "Hola", 200
 
 
 if __name__ == "__main__":

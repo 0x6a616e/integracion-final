@@ -30,3 +30,9 @@ Esta ruta con el método PATCH actualiza una entrada según el id recibido y los
 atributos que se mandan en el forms, esta protegida por JWT
 
 /attr/<table>
+
+Esta ruta con el método GET regresa las columnas de la tabla solicitada
+
+/order/<id>
+
+Esta ruta con el método GET regresa la información de la orden completa
