@@ -10,22 +10,22 @@
 
 	const getOrders = async () => {
 		const url = 'http://34.70.30.227:5000/orders/identity_id/' + localStorage.getItem('id');
-		//const response = await axios.get(`http://34.70.30.227:5000/orders/identity_id/${localStorage.getItem('id')}`);		
 		const response = await axios.get(url);		
-		console.log(response.data.data)	
 		return response.data.data;
 	}
 
-	onMount(() => {
+	onMount( async () => {
 		if (!isAuthenticated() || localStorage.getItem('admin') != '0'){
 			push('/');
 
 
 		}
 
-		const data = getOrders();
+		const data = await getOrders();
 
 		datos = data;
+
+		console.log(datos);
 
 	});
 
@@ -50,16 +50,16 @@
 				</thead>
 
 				<tbody class="w-100">
+					{#each datos as dato}
 						<tr>
-							{#each datos as dato}
-								<td> {dato.id }</td>
-								<td>
+							<td> {dato.id }</td>
+							<td>
 
-									<a href="/detalles/pedido/{dato.id}" use:link ><button class="crud-detalles mx-2 btn btn-outline-info" value="">{dato.status}</button></a>
+								<a href="/detalles/pedido/{dato.id}" use:link ><button class="crud-detalles mx-2 btn btn-outline-info" value="">Detalles</button></a>
 
-								</td>
-							{/each}	
+							</td>
 						</tr>
+					{/each}
 				</tbody>
 			</table>
 		</div>
