@@ -179,15 +179,21 @@ def getOrderDetails(id):
 @cross_origin()
 @jwt_required()
 def insertOrder():
-    print(request.form)
-    # cursor = mysql.connection.cursor()
-    # lat = request.form.get("latitud")
-    # lng = request.form.get("longitud")
-    # query = "INSERT INTO orders (latitude, longitude) VALUES (%s, %s);"
-    # cursor.execute(query, (lat, lng))
-    # mysql.connection.commit()
-    # order_id = cursor.lastrowid
-    # cursor.close()
+    cursor = mysql.connection.cursor()
+    lat = request.form.get("latitud")
+    lng = request.form.get("longitud")
+    query = "INSERT INTO orders (latitude, longitude) VALUES (%s, %s);"
+    cursor.execute(query, (lat, lng))
+    mysql.connection.commit()
+    order_id = cursor.lastrowid
+    datos = request.form.to_dict(flat=False)
+    models = datos["modelo"]
+    quantities = datos["cantidad"]
+    for pair in zip(models, quantities):
+        query = "INSERT INTO order_detail (order_id, product_id, quantity) VALUES (%s, %s, %s);"
+        cursor.execute(query, (order_id, pair[0], pair[1]))
+        mysql.connection.commit()
+    cursor.close()
     return "OK", 201
 
 
