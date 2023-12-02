@@ -152,6 +152,25 @@ def updateData(table, id):
         return "Error", 500
 
 
+@app.route("/data/<table>/<id>", methods=["DELETE"])
+@cross_origin()
+@jwt_required()
+def deleteData(table, id):
+    columns = getColumns(table)
+    if not columns:
+        return "Table not found", 404
+    query = f"DELETE FROM {table} WHERE id = %s;"
+    cursor = mysql.connection.cursor()
+    try:
+        cursor.execute(query, (id,))
+        mysql.connection.commit()
+        cursor.close()
+        return "OK", 200
+    except:
+        cursor.close()
+        return "Error", 500
+
+
 @app.route("/order/<id>", methods=["GET"])
 @cross_origin()
 def getOrderDetails(id):

@@ -1211,8 +1211,8 @@ CREATE TABLE `identity_company` (
   PRIMARY KEY (`id`),
   KEY `company_identity_company_fk` (`company_id`),
   KEY `identity_identity_company_fk` (`identity_id`),
-  CONSTRAINT `company_identity_company_fk` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`),
-  CONSTRAINT `identity_identity_company_fk` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`)
+  CONSTRAINT `company_identity_company_fk` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `identity_identity_company_fk` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1336,8 +1336,8 @@ CREATE TABLE `location_history` (
   PRIMARY KEY (`id`),
   KEY `truck_fk_idx` (`truck_id`),
   KEY `order_fk_idx` (`order_id`),
-  CONSTRAINT `order_fk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `truck_loc_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`)
+  CONSTRAINT `order_fk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `truck_loc_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -7591,8 +7591,8 @@ CREATE TABLE `order_detail` (
   PRIMARY KEY (`id`),
   KEY `order_fk2_idx` (`order_id`),
   KEY `product_fk_idx` (`product_id`),
-  CONSTRAINT `order_fk2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  CONSTRAINT `product_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  CONSTRAINT `order_fk2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `product_fk` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -7632,8 +7632,8 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`),
   KEY `branch_fk_idx` (`branch_id`),
   KEY `indentity_fk_idx` (`identity_id`),
-  CONSTRAINT `branch_fk` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`),
-  CONSTRAINT `indentity_fk` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`)
+  CONSTRAINT `branch_fk` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `indentity_fk` FOREIGN KEY (`identity_id`) REFERENCES `identity` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -7669,7 +7669,7 @@ CREATE TABLE `payment` (
   `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `truck_fk_idx` (`truck_id`),
-  CONSTRAINT `truck_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`)
+  CONSTRAINT `truck_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -7753,9 +7753,9 @@ CREATE TABLE `route` (
   KEY `long_stop_route_fk` (`end_stop_id`),
   KEY `long_stop_route_fk1` (`beginning_stop_id`),
   KEY `truck_route_fk` (`truck_id`),
-  CONSTRAINT `long_stop_route_fk` FOREIGN KEY (`end_stop_id`) REFERENCES `long_stop` (`id`),
-  CONSTRAINT `long_stop_route_fk1` FOREIGN KEY (`beginning_stop_id`) REFERENCES `long_stop` (`id`),
-  CONSTRAINT `truck_route_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`)
+  CONSTRAINT `long_stop_route_fk` FOREIGN KEY (`end_stop_id`) REFERENCES `long_stop` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `long_stop_route_fk1` FOREIGN KEY (`beginning_stop_id`) REFERENCES `long_stop` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `truck_route_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21376 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -11718,10 +11718,10 @@ CREATE TABLE `sample` (
   KEY `truck_sample_fk` (`truck_id`),
   KEY `sampling_sample_fk` (`sampling_id`),
   KEY `route_sample_fk` (`route_id`),
-  CONSTRAINT `company_sample_fk` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`),
-  CONSTRAINT `route_sample_fk` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`),
-  CONSTRAINT `sampling_sample_fk` FOREIGN KEY (`sampling_id`) REFERENCES `sampling` (`id`),
-  CONSTRAINT `truck_sample_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`)
+  CONSTRAINT `company_sample_fk` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `route_sample_fk` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `sampling_sample_fk` FOREIGN KEY (`sampling_id`) REFERENCES `sampling` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `truck_sample_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -11774,7 +11774,7 @@ CREATE TABLE `sampling` (
   `aux3` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `truck_sampling_fk` (`truck_id`),
-  CONSTRAINT `truck_sampling_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`)
+  CONSTRAINT `truck_sampling_fk` FOREIGN KEY (`truck_id`) REFERENCES `truck` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -11832,7 +11832,7 @@ CREATE TABLE `short_stop` (
   `aux3` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `route_short_stop_fk` (`route_id`),
-  CONSTRAINT `route_short_stop_fk` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`)
+  CONSTRAINT `route_short_stop_fk` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -11912,7 +11912,7 @@ CREATE TABLE `truck` (
   `km_fee` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `company_truck_fk` (`company_id`),
-  CONSTRAINT `company_truck_fk` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`)
+  CONSTRAINT `company_truck_fk` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1078 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -12951,7 +12951,7 @@ CREATE TABLE `uploaded_file` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `company_uploaded_file_fk` (`company_id`),
-  CONSTRAINT `company_uploaded_file_fk` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`)
+  CONSTRAINT `company_uploaded_file_fk` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

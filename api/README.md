@@ -29,6 +29,11 @@ atributos que se pasen en el form, esta protegida por JWT
 Esta ruta con el método PATCH actualiza una entrada según el id recibido y los
 atributos que se mandan en el forms, esta protegida por JWT
 
+/data/<table>/id
+
+Esta ruta con el método DELETE borra una entrada según el id recibido y los
+atributos que se mandan en el forms, esta protegida por JWT
+
 /attr/<table>
 
 Esta ruta con el método GET regresa las columnas de la tabla solicitada
