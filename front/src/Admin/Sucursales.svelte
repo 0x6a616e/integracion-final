@@ -6,7 +6,7 @@
     import Tabla from '../Components/Tabla.svelte';
 
     onMount(() => {
-		if (!isAuthenticated()){
+		if (!isAuthenticated() || localStorage.getItem('admin') != '1'){
 			push('/');
 		}
 	});

@@ -1,7 +1,7 @@
 
 export const isAuthenticated = () => {
-    const storedUsername = localStorage.getItem('username');
-    const storedPassword = localStorage.getItem('password');
+    const username = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
   
-    return !!storedUsername && !!storedPassword;
+    return !!username && !!token;
 }

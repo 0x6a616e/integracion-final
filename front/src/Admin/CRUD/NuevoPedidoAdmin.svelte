@@ -7,7 +7,7 @@
 
     onMount(() => {
 
-        if (!isAuthenticated()){
+        if (!isAuthenticated() || localStorage.getItem('admin') != '1'){
 			push('/');
 		}
 

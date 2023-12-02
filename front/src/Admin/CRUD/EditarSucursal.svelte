@@ -6,7 +6,7 @@
     import NavAdmin from "../../Components/NavAdmin.svelte";    
     export let params = {};
     onMount(() => {
-		if (!isAuthenticated()){
+		if (!isAuthenticated() || localStorage.getItem('admin') != '1'){
 			push('/');
 		}
 	});

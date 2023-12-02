@@ -1,26 +1,50 @@
 <script>
     import {push} from 'svelte-spa-router';
+    import { onMount } from 'svelte';
+    import {isAuthenticated } from '../js/auth';
     import Swal from 'sweetalert2';
     import axios from 'axios';
+
+    onMount(() => {
+
+       if (isAuthenticated() && localStorage.getItem('admin') === '1'){
+			push('/pedidos/admin');
+		}
+
+
+       if (isAuthenticated() && localStorage.getItem('admin') === '0'){
+			push('/pedidos');
+		}
+
+    });
 
     let user = '';
     let password = '';
 
     const login = () =>{
         if(user != '' || password != ''){
-            /*const form = document.getElementById('loginForm');
+            const form = document.getElementById('loginForm');
 
-            axios.post('https://127.0.0.1:5000/login', new FormData(form))
+            axios.post('http://34.121.173.64:5000/login', new FormData(form))
             .then(res =>{
-                if(res.data === 'success'){
-                    
+                
+                const data = res.data;
+
+                localStorage.setItem('id', data.user_id);
+                localStorage.setItem('admin', data.is_admin);
+                localStorage.setItem('token', data.token);
+
+                if(localStorage.getItem('admin') === '1'){
+                    push('/pedidos/admin');
                 }else{
-
+                    push('/pedidos');
                 }
-            });*/
 
-            localStorage.setItem('username', 'usuario');
-            localStorage.setItem('password', 'contraseña');
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
 
             Swal.fire({
                 title: 'Loggeado',

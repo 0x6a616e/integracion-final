@@ -6,7 +6,7 @@
     import NavUser from "../Components/NavUser.svelte";
 
 	onMount(() => {
-		if (!isAuthenticated()){
+		if (!isAuthenticated() || localStorage.getItem('admin') != '0'){
 			push('/');
 		}
 	});
