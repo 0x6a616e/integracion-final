@@ -6,6 +6,7 @@ from flask_mysqldb import MySQL
 import xml.etree.ElementTree as ET
 from dotenv import load_dotenv
 import requests
+import pandas
 
 load_dotenv()
 
@@ -239,6 +240,22 @@ def login():
     if json_data["user_id"]:
         json_data["token"] = create_access_token(identity=json_data["user_id"])
     return jsonify(json_data)
+
+
+@app.route("/graph1", methods=["GET"])
+@cross_origin()
+@jwt_required()
+def graph1():
+    df = pandas.read_csv("http://35.202.61.254/~j18366496/distance_per_company.csv")
+    return df.to_json(orient="split")
+
+
+@app.route("/graph2", methods=["GET"])
+@cross_origin()
+@jwt_required()
+def graph2():
+    df = pandas.read_csv("http://35.202.61.254/~j18366496/routes_per_company.csv")
+    return df.to_json(orient="split")
 
 
 if __name__ == "__main__":
