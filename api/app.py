@@ -69,7 +69,7 @@ def getAttrs(table):
 
 @app.route("/data/<table>", methods=["GET"])
 @cross_origin()
-@jwt_required()
+@jwt_required(optional=True)
 def getTable(table):
     columns = getColumns(table)
     if not columns:
