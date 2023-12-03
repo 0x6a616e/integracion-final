@@ -3,7 +3,8 @@ import {alertaExito} from './showAlert';
 import {push } from 'svelte-spa-router';
 
 export const getFunction = async (url) =>{
-    const response = await axios.get(url);		
+    const headers = {headers : {'Authorization' : `Bearer ${localStorage.getItem('token')}`} }  
+    const response = await axios.get(url, headers);		
     return response.data.data;
 }
 
