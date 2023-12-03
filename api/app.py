@@ -240,5 +240,6 @@ def login():
         json_data["token"] = create_access_token(identity=json_data["user_id"])
     return jsonify(json_data)
 
+
 if __name__ == "__main__":
     app.run(debug=True)
