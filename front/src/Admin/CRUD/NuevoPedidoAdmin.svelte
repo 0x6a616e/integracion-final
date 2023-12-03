@@ -3,25 +3,11 @@
     import { onMount } from "svelte";
     import { isAuthenticated } from '../../js/auth';
     import { push } from 'svelte-spa-router';
-    import {getFunction} from '../../js/asyncFunctions';
-    import {alertaExito} from '../../js/showAlert';
+    import {getFunction, postForm} from '../../js/asyncFunctions';
     import axios from "axios";
     import NavAdmin from "../../Components/NavAdmin.svelte";
 
     let users = [];
-
-    const submitForm = async () => {
-        const form = document.getElementById('form-product');
-        const headers = {headers : {'Authorization' : `Bearer ${localStorage.getItem('token')}`} }  
-        await axios.post('http://34.70.30.227:5000/order', form, headers )
-        .then( response =>{
-            alertaExito();
-            push('/');
-        })
-        .catch(error => {
-            console.log(error)
-        });
-    }
 
     onMount( async () => {
 
@@ -72,7 +58,7 @@
 
 <div class="container mt-4 bg-white rounded shadow pt-5 pb-5 p-5 h-100 mb-5">
 
-        <form on:submit|preventDefault={submitForm} id="form-product">
+        <form on:submit|preventDefault={() => postForm('http://34.70.30.227:5000/order')} id="form-product">
             
             <div class="mb-3">
                 <label for="id_user" class="form-label">Selecciona el id del usuario</label>

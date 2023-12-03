@@ -25,7 +25,7 @@
         if(user != '' || password != ''){
             const form = document.getElementById('loginForm');
 
-            axios.post('http://34.121.173.64:5000/login', new FormData(form))
+            axios.post('http://34.70.30.227:5000/login', new FormData(form))
             .then(res =>{
                 
                 const data = res.data;
