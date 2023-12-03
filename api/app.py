@@ -1,7 +1,7 @@
 from os import getenv
 from flask import Flask, request, Response, jsonify
 from flask_cors import cross_origin
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
 from flask_mysqldb import MySQL
 import xml.etree.ElementTree as ET
 from dotenv import load_dotenv
@@ -235,8 +235,10 @@ def insertOrder():
 @cross_origin()
 def login():
     r = requests.post("http://34.121.173.64:5000/login", request.form)
-    print(r.text)
-    return "OK", 200
+    json_data = r.json()
+    if json_data["user_id"]:
+        json_data["token"] = create_access_token(identity=json_data["user_id"])
+    return jsonify(json_data)
 
 if __name__ == "__main__":
     app.run(debug=True)
