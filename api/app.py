@@ -5,6 +5,7 @@ from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from flask_mysqldb import MySQL
 import xml.etree.ElementTree as ET
 from dotenv import load_dotenv
+import requests
 
 load_dotenv()
 
@@ -15,6 +16,7 @@ app.config["MYSQL_USER"] = getenv("MYSQL_USER")
 app.config["MYSQL_PASSWORD"] = getenv("MYSQL_PASSWORD")
 app.config["MYSQL_DB"] = getenv("MYSQL_DB")
 app.config["JWT_SECRET_KEY"] = getenv("APP_SECRET")
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = False
 
 jwt = JWTManager(app)
 
@@ -56,6 +58,7 @@ def getXmlResponse(columns, datos):
 
 @app.route("/attr/<table>", methods=["GET"])
 @cross_origin()
+@jwt_required()
 def getAttrs(table):
     columns = getColumns(table)
     if not columns:
@@ -65,6 +68,7 @@ def getAttrs(table):
 
 @app.route("/data/<table>", methods=["GET"])
 @cross_origin()
+@jwt_required()
 def getTable(table):
     columns = getColumns(table)
     if not columns:
@@ -82,6 +86,7 @@ def getTable(table):
 
 @app.route("/data/<table>/<field>/<value>", methods=["GET"])
 @cross_origin()
+@jwt_required()
 def getTableByField(table, field, value):
     columns = getColumns(table)
     if not columns:
@@ -168,6 +173,7 @@ def deleteData(table, id):
 
 @app.route("/order/<id>", methods=["GET"])
 @cross_origin()
+@jwt_required()
 def getOrderDetails(id):
     cursor = mysql.connection.cursor()
     query = "SELECT latitude, longitude FROM orders WHERE id = %s;"
@@ -224,6 +230,13 @@ def insertOrder():
     cursor.close()
     return "OK", 201
 
+
+@app.route("/login", methods=["POST"])
+@cross_origin()
+def login():
+    r = requests.post("http://34.121.173.64:5000/login", request.form)
+    print(r.text)
+    return "OK", 200
 
 if __name__ == "__main__":
     app.run(debug=True)
