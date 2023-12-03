@@ -247,7 +247,12 @@ def login():
 @jwt_required()
 def graph1():
     df = pandas.read_csv("http://35.202.61.254/~j18366496/distance_per_company.csv")
-    return df.to_json(orient="split")
+    cols = []
+    vals = []
+    for ind in df.index:
+        cols.append(str(df["company_id"][ind]))
+        vals.append(df["total_distance"][ind])
+    return jsonify(data=[cols, vals])
 
 
 @app.route("/graph2", methods=["GET"])
@@ -255,7 +260,12 @@ def graph1():
 @jwt_required()
 def graph2():
     df = pandas.read_csv("http://35.202.61.254/~j18366496/routes_per_company.csv")
-    return df.to_json(orient="split")
+    cols = []
+    vals = []
+    for ind in df.index:
+        cols.append(str(df["company_id"][ind]))
+        vals.append(int(df["route_count"][ind]))
+    return jsonify(data=[cols, vals])
 
 
 if __name__ == "__main__":
